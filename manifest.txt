@@ -1,2 +1,5 @@
 Main-Class: com.insurance.Main
 Class-Path: .
+
+
+//My jar file:- java -jar out/artifacts/InsuranceManagementSystem_jar/InsuranceManagementSystem.jar
