@@ -70,6 +70,8 @@ InsurancePolicyManagementSystem/
 
 │   └── schema.sql                 # SQL script to create and populate the database
 
+│   └── db_config.properties                      ✅ Editable DB config
+
 ├── .gitignore
 
 ├── InsuranceManagementSystem.iml  # IntelliJ project file
@@ -103,8 +105,11 @@ Execute the SQL script contained in the resources/schema.sql file to create and 
 source path/to/resources/schema.sql;
 Note: The SQL script includes database, tables, and sample data creation. Refer to schema.sql for details.
 
-## Step 2: Configure Database Connection
-Open src/com/insurance/db/DBConnection.java
+## Step 2:The database configuration is now externalized in a db_config.properties file, so users can run the project without modifying any Java code.
+
+Open the file: resources/db_config.properties
+
+ After updating the properties file, just run the jar — no need to rebuild!
 
 #### Update the database connection URL, username, and password according to your local MySQL setup.
 
