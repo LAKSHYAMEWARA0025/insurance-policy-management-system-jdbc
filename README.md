@@ -1,147 +1,120 @@
 # 🛡️ Insurance Policy Management System (JDBC-Based)
 
-This is a console-based **Insurance Policy Management System** built in **Java using JDBC** and **MySQL**. It allows management of clients, policies, premiums, claims, claim statuses, renewals, payouts, and custom reporting.
+This is a console-based Insurance Policy Management System built in Java using JDBC and MySQL. It allows management of clients, policies, premiums, claims, claim statuses, renewals, payouts, and custom reporting.
 
----
+📌 Features Implemented
 
-## 📌 Features Implemented
+1.View different policy types.
 
-1. View different policy types
-2. View revenue by each policy category
-3. View policies due for renewal in next X days
-4. View claim approval rates by policy type
-5. View outstanding premium amounts by customer
-6. View average claim payout per incident
-7. Run your own custom SQL `SELECT` query from console
-8. Exit program
+2.View revenue by each policy category.
 
----
+3.View policies due for renewal in next X days (X will be provided by the user).
 
-## 🧱 Folder Structure
+4.View claim approval rates by policy type.
 
+5.View outstanding premium amounts by customer.
+
+6.View average claim payout per incident.
+
+7.Run your own custom SQL SELECT query from console.
+
+8.Exit program!.
+
+# Folder Structure
 InsurancePolicyManagementSystem/
-├── .idea/ # IntelliJ config folder
-├── out/ # Compiled .class files
-├── src/
-│ └── com/
-│ └── insurance/
-│ ├── dao/
-│ │ ├── ClientDAO.java
-│ │ ├── PolicyTypeDAO.java
-│ │ └── ReportsDAO.java
-│ ├── db/
-│ │ └── DBConnection.java
-│ ├── model/
-│ │ ├── Client.java
-│ │ └── PolicyType.java
-│ ├── utility/
-│ │ └── QueryRunner.java
-│ ├── ClientUI.java
-│ └── Main.java
+
+├── .idea/                          # IntelliJ IDEA configuration files
+
+├── out/                           # Compiled .class files and generated artifacts
+
+│   └── artifacts/
+
+│       └── InsuranceManagementSystem_jar/
+
+│           └── InsuranceManagementSystem.jar   # Runnable jar file
+
+
+├── src/                           # Java source code
+
+│   └── com/
+
+│       └── insurance/
+
+│           ├── dao/               # Data Access Object classes
+
+│           │   ├── ClientDAO.java
+
+│           │   ├── PolicyTypeDAO.java
+
+│           │   └── ReportsDAO.java
+
+│           ├── db/                # Database connection utility
+
+│           │   └── DBConnection.java
+
+│           ├── model/             # Model classes
+
+│           │   ├── Client.java
+
+│           │   └── PolicyType.java
+
+│           ├── utility/           # Utility classes
+
+│           │   └── QueryRunner.java
+
+│           ├── ClientUI.java      # Console UI class
+
+│           └── Main.java          # Main class to run the program
+
 ├── resources/
-│ └── schema.sql # SQL file to create & populate database
-├── lib/
-│ └── mysql-connector-java-8.0.xx.jar
+
+│   └── schema.sql                 # SQL script to create and populate the database
+
 ├── .gitignore
-└── InsuranceManagementSystem.iml
+
+├── InsuranceManagementSystem.iml  # IntelliJ project file
+
+└── README.md      
+
+External Libraries
 
 
 
-## 🧰 Tech Stack
+🧰 Tech Stack
+❤Java 17+
 
-- Java 17+
-- JDBC (Java Database Connectivity)
-- MySQL 8+
-- IntelliJ IDEA
-- No Maven/Gradle used
+❤JDBC (Java Database Connectivity)
 
----
+❤MySQL 8+
 
-## 🛠️ Setup Instructions (for Other Users)
+❤IntelliJ IDEA
 
-> ⚠️ Ensure you have Java JDK and MySQL installed before proceeding.
+❤No Maven/Gradle used (manual jar management)
 
-### ✅ Step 1: Set up the MySQL Database
+# 🛠️ Setup Instructions
+### ⚠️ Ensure you have Java JDK and MySQL installed before proceeding.
 
-1. Open MySQL Workbench or terminal.
-2. Run the following script to **create the database and tables**:
+## Step 1: Set up the MySQL Database
+Open MySQL Workbench or your preferred MySQL terminal client.
 
-sql
--- Create database
-CREATE DATABASE IF NOT EXISTS insurance_db;
-USE insurance_db;
+Execute the SQL script contained in the resources/schema.sql file to create and populate the database with necessary tables and sample data.
 
--- Create tables
-CREATE TABLE client (
-    client_id VARCHAR(20) PRIMARY KEY,
-    name VARCHAR(50),
-    contact_number VARCHAR(15),
-    email VARCHAR(50),
-    address TEXT
-);
+### For example, in MySQL terminal:
+source path/to/resources/schema.sql;
+Note: The SQL script includes database, tables, and sample data creation. Refer to schema.sql for details.
 
-CREATE TABLE policy_type (
-    policy_type_id VARCHAR(20) PRIMARY KEY,
-    name VARCHAR(50),
-    description TEXT,
-    category VARCHAR(50),
-    grace_period int
-);
+## Step 2: Configure Database Connection
+Open src/com/insurance/db/DBConnection.java
 
-CREATE TABLE policy (
-    policy_id VARCHAR(20) PRIMARY KEY,
-    client_id VARCHAR(20),
-    policy_type_id VARCHAR(20),
-    start_date DATE,
-    end_date DATE,
-    status VARCHAR(20),
-    FOREIGN KEY (client_id) REFERENCES client(client_id),
-    FOREIGN KEY (policy_type_id) REFERENCES policy_type(policy_type_id)
-);
+#### Update the database connection URL, username, and password according to your local MySQL setup.
 
-CREATE TABLE premium (
-    premium_id VARCHAR(20) PRIMARY KEY,
-    policy_id VARCHAR(20),
-    due_date DATE,
-    amount DECIMAL(10,2),
-    status VARCHAR(20),
-    FOREIGN KEY (policy_id) REFERENCES policy(policy_id)
-);
+## Step 3: Build and Run the Project
+The runnable jar file is generated at:
+out/artifacts/InsuranceManagementSystem_jar/InsuranceManagementSystem.jar
 
-CREATE TABLE claim (
-    claim_id VARCHAR(20) PRIMARY KEY,
-    policy_id VARCHAR(20),
-    client_id VARCHAR(20),
-    incident_details TEXT,
-    claim_date DATE,
-    FOREIGN KEY (policy_id) REFERENCES policy(policy_id),
-    FOREIGN KEY (client_id) REFERENCES client(client_id)
-);
+#### To run the jar file, open a terminal in the project root and execute:
 
-CREATE TABLE claim_status (
-    claim_status_id VARCHAR(20) PRIMARY KEY,
-    claim_id VARCHAR(20),
-    status VARCHAR(20),
-    updated_on DATE,
-    FOREIGN KEY (claim_id) REFERENCES claim(claim_id)
-);
+java -jar out/artifacts/InsuranceManagementSystem_jar/InsuranceManagementSystem.jar
+If your project requires the MySQL connector jar separately, make sure it’s in the classpath or included in the jar.
 
-CREATE TABLE payout (
-    payout_id VARCHAR(20) PRIMARY KEY,
-    claim_id VARCHAR(20),
-    amount_paid DECIMAL(10,2),
-    payment_date DATE,
-    FOREIGN KEY (claim_id) REFERENCES claim(claim_id)
-);
-
-CREATE TABLE endorsement (
-    endorsement_id VARCHAR(20) PRIMARY KEY,
-    policy_id VARCHAR(20),
-    change_description TEXT,
-    change_date DATE,
-    FOREIGN KEY (policy_id) REFERENCES policy(policy_id)
-);
-
-
-** Change your Database credentials **
-(URL,Username,Password) in db->DBConnection.java
+Thanks!
