@@ -14,7 +14,7 @@ public class Main {
         do {
             System.out.println("\n===== Insurance Management System =====");
             System.out.println("1. View Different Policy Types");
-            System.out.println("8. View revenue by each category");
+            System.out.println("2. View revenue by each category");
             System.out.println("3. Policies due for renewal in next X days");
             System.out.println("4. View claim approval rates by policy type");
             System.out.println("5. View Outstanding premium amounts by Customer");
